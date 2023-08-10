@@ -1,0 +1,70 @@
+#include <stdio.h>
+#define SIZE 10
+
+
+void bobble_sort(int* randList){
+    int temp;
+
+    for( int i = 0; i < SIZE - 1; i++ ){
+        for( int j = 0; j < SIZE - 1 - i; j++ ){
+            if( randList[j] > randList[j+1]){
+                temp = randList[j];
+                randList[j] = randList[j+1];
+                randList[j+1] = temp;
+            }
+        }
+    }
+}
+
+void step_printer(int *randList, int low, int high){
+    if( low == 0 && high == SIZE - 1 ) return;
+    printf("Binary Search step:");
+    for( int i = low; i <= high; i++ )
+        printf("%d ", randList[i]);
+    puts("");
+}
+
+int binary_search(int num, int* randList, int low, int high){
+    int middle;
+    int flag = 0;
+    while( low <= high ){
+        middle = ( low + high ) / 2;
+        step_printer(randList, low, high);
+
+        if( num == randList[middle])
+            return middle;
+        else if( num < randList[middle] )
+            high = middle - 1;
+        else
+            low = middle + 1;
+    }
+    return -1;
+}
+
+int main(){
+    int num = 0;
+    int randList[SIZE];
+    int flag;
+
+    printf("Input array:");
+    for( int i = 0; i < SIZE; i++ )
+        scanf("%d", &randList[i]);
+
+    printf("Input number:");
+    scanf("%d", &num);
+    
+    bobble_sort( randList );
+
+    printf("Sorted array:");
+    for( int i = 0; i < SIZE; i++ )
+        printf("%d ", randList[i]);
+    puts("");
+
+    flag = binary_search( num, randList, 0, SIZE - 1 );
+    if( flag == -1 )
+        printf("NOT FOUND!");
+    else
+        printf("%d is in the randList[%d]!", num, flag);
+    
+    return 0;
+}

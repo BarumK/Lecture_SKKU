@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+void matrix_printer(int matrixA[][4], int matrixB[][4]){
+    printf("MatrixA \t MatrixB\n");
+    for( int i = 0; i < 4; i++ ){
+        for( int j = 0; j < 4; j++ ){
+            printf(" %d", matrixA[i][j]);
+        }
+        printf(" \t");
+        for( int j = 0; j < 4; j++ ){
+            printf(" %d", matrixB[i][j]);
+        }
+        printf("\n");
+    }
+		printf("\n");
+}
+
+void matrix_operation(int matrixA[][4], int matrixB[][4], char operator){
+
+    printf("\nResult\n");
+    switch(operator){
+        case '+':
+            for( int i = 0; i < 4; i++ ){
+                for( int j = 0; j < 4; j++ ){
+                    printf(" %d", matrixA[i][j] + matrixB[i][j]);
+                }
+                printf("\n");
+            }
+            break;
+        case '-':
+            for( int i = 0; i < 4; i++ ){
+                for( int j = 0; j < 4; j++ ){
+                    printf(" %d", matrixA[i][j] - matrixB[i][j]);
+                }
+                printf("\n");
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+int main(){
+    int matrixA[4][4];
+    int matrixB[4][4];
+    char operator;
+
+    for( int i = 0; i < 4; i++ ){
+        for( int j = 0; j < 4; j++ ){
+            scanf("%d", &matrixA[i][j]);
+        }
+    }
+
+    for( int i = 0; i < 4; i++ ){
+        for( int j = 0; j < 4; j++ ){
+            scanf("%d", &matrixB[i][j]);
+        }
+    }
+		printf("\n");
+
+    
+    matrix_printer(matrixA, matrixB);
+
+    printf("Enter operator(+, -): ");
+    do{
+			scanf("%c", &operator);
+		}while(operator != '+' && operator != '-');
+
+    matrix_operation(matrixA, matrixB, operator);
+
+    return 0;
+}
